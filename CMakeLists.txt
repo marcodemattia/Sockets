@@ -3,5 +3,8 @@ project(Sockets)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp src/ServerWithSelect.cpp src/ServerWithSelect.h src/ServerWithPoll.cpp src/ServerWithPoll.h)
-add_executable(Sockets ${SOURCE_FILES})
+set(SOURCE_FILES src/StreamingServerWithSelect.cpp src/StreamingServerWithSelect.h src/StreamingServerWithPoll.cpp
+        src/StreamingServerWithPoll.h src/DatagramServerWithPoll.cpp src/DatagramServerWithPoll.h)
+add_executable(StreamingServer main.cpp ${SOURCE_FILES})
+add_executable(StreamingClient mainClient.cpp ${SOURCE_FILES})
+add_executable(UDPClient mainUDPClient.cpp ${SOURCE_FILES})

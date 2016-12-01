@@ -2,8 +2,8 @@
 // Created by Marco De Mattia on 12/1/16.
 //
 
-#ifndef SOCKETS_SERVERWITHSELECT_H
-#define SOCKETS_SERVERWITHSELECT_H
+#ifndef SOCKETS_SERVERWITHPOLL_H
+#define SOCKETS_SERVERWITHPOLL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,12 +14,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <poll.h>
+#include <vector>
 
 
-class ServerWithSelect
+class StreamingServerWithPoll
 {
  public:
-  ServerWithSelect(const char * PORT);
+  StreamingServerWithPoll(const char * PORT);
   void loop();
 
   // get sockaddr, IPv4 or IPv6:
@@ -33,10 +35,6 @@ class ServerWithSelect
   }
 
  private:
-  fd_set master_;    // master file descriptor list
-  fd_set read_fds_;  // temp file descriptor list for select()
-  int fdmax_;        // maximum file descriptor number
-
   int listener_;     // listening socket descriptor
   int newfd_;        // newly accept()ed socket descriptor
   struct sockaddr_storage remoteaddr_; // client address
@@ -49,7 +47,7 @@ class ServerWithSelect
 
   int yes_=1;        // for setsockopt() SO_REUSEADDR, below
 
+  std::vector<pollfd> ufds_;
 };
 
-
-#endif //SOCKETS_SERVERWITHSELECT_H
+#endif //SOCKETS_SERVERWITHPOLL_H

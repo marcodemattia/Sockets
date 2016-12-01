@@ -2,9 +2,9 @@
 // Created by Marco De Mattia on 12/1/16.
 //
 
-#include "ServerWithSelect.h"
+#include "StreamingServerWithSelect.h"
 
-ServerWithSelect::ServerWithSelect(const char * PORT)
+StreamingServerWithSelect::StreamingServerWithSelect(const char * PORT)
 {
   int rv;
   struct addrinfo hints, *ai, *p;
@@ -67,7 +67,7 @@ ServerWithSelect::ServerWithSelect(const char * PORT)
 }
 
 
-void ServerWithSelect::loop()
+void StreamingServerWithSelect::loop()
 {
   int i, j;
   // main loop
