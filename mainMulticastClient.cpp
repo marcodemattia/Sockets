@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
   int rv;
   char s[INET6_ADDRSTRLEN];
 
-  if (argc != 2) {
-    fprintf(stderr,"usage: client hostname\n");
+  if (argc < 2) {
+    fprintf(stderr,"usage: client hostname and optionally udp port\n");
     exit(1);
   }
 
@@ -55,7 +55,10 @@ int main(int argc, char *argv[])
   hints.ai_socktype = SOCK_DGRAM;
   hints.ai_flags = AI_PASSIVE; // use my IP
 
-  if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
+  std::string port_string = PORT;
+  if (argc >= 3) port_string = argv[2];
+
+  if ((rv = getaddrinfo(argv[1], port_string.c_str(), &hints, &servinfo)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     return 1;
   }
@@ -79,7 +82,7 @@ int main(int argc, char *argv[])
     struct sockaddr_in * multicastJoin = (struct sockaddr_in *)(p->ai_addr);
     multicastJoin->sin_family=AF_INET;
     multicastJoin->sin_addr.s_addr=htonl(INADDR_ANY); /* N.B.: differs from sender */
-    multicastJoin->sin_port=htons(std::stoi(std::string(PORT)));
+    multicastJoin->sin_port=htons(std::stoi(std::string(port_string.c_str())));
 
     // Need to use bind instead of connect in UDP because UDP is "connection-less".
     if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {

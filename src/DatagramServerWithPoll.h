@@ -17,6 +17,12 @@
 #include <poll.h>
 #include <vector>
 
+/**
+ * Simple server that listens to connection on a TCP port (default 9034) and echoes the input
+ * to a UDP port (default 10024). The UDPClient is able to listen to this UDP port and print
+ * the messages.
+ */
+
 
 class DatagramServerWithPoll {
  public:

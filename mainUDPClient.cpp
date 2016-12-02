@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
   int rv;
   char s[INET6_ADDRSTRLEN];
 
-  if (argc != 2) {
-    fprintf(stderr,"usage: client hostname\n");
+  if (argc < 2) {
+    fprintf(stderr,"usage: client hostname and optionally udp port\n");
     exit(1);
   }
 
@@ -49,7 +49,10 @@ int main(int argc, char *argv[])
   hints.ai_socktype = SOCK_DGRAM;
   hints.ai_flags = AI_PASSIVE; // use my IP
 
-  if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
+  std::string port_string = PORT;
+  if (argc >= 3) port_string = argv[2];
+
+  if ((rv = getaddrinfo(argv[1], port_string.c_str(), &hints, &servinfo)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     return 1;
   }

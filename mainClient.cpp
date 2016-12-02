@@ -11,8 +11,8 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-
 #include <arpa/inet.h>
+#include <string>
 
 #define PORT "9034" // the port client will be connecting to
 
@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
   int rv;
   char s[INET6_ADDRSTRLEN];
 
-  if (argc != 2) {
-    fprintf(stderr,"usage: client hostname\n");
+  if (argc < 2) {
+    fprintf(stderr,"usage: client hostname and optionally TCP port\n");
     exit(1);
   }
 
@@ -46,7 +46,10 @@ int main(int argc, char *argv[])
   hints.ai_family = AF_UNSPEC;
   hints.ai_socktype = SOCK_STREAM;
 
-  if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
+  std::string port_string = PORT;
+  if (argc >= 3) port_string = argv[2];
+
+  if ((rv = getaddrinfo(argv[1], port_string.c_str(), &hints, &servinfo)) != 0) {
     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
     return 1;
   }

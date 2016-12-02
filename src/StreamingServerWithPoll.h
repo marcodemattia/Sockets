@@ -17,6 +17,13 @@
 #include <poll.h>
 #include <vector>
 
+/**
+ * Simple server that listens to connection on a TCP port (default 9034) and echoes the input
+ * messages to the sockets connected on that port (via TCP). It works as a simple group chat in
+ * that the input message from one socket is sent to all other sockets (except the origin of the
+ * message). The input TCP port is monitored with the poll() command.
+ */
+
 
 class StreamingServerWithPoll
 {

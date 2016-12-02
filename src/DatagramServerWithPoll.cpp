@@ -145,9 +145,9 @@ void DatagramServerWithPoll::loop()
             } else {
               // we got some data from a client
               // Broadcast it to the UDP port
-              std::cout << "Sending message: \"" << buf_ << "\" to socket " << broadcast_ << std::endl;
-              std::cout << "broadcastServerInfo_->ai_addr = " << broadcastServerInfo_->ai_addr << std::endl;
-              std::cout << "broadcastServerInfo_->ai_addrlen = " << broadcastServerInfo_->ai_addrlen << std::endl;
+              // std::cout << "Sending message: \"" << buf_ << "\" to socket " << broadcast_ << std::endl;
+              // std::cout << "broadcastServerInfo_->ai_addr = " << broadcastServerInfo_->ai_addr << std::endl;
+              // std::cout << "broadcastServerInfo_->ai_addrlen = " << broadcastServerInfo_->ai_addrlen << std::endl;
               if ((nbytes_ = sendto(broadcast_, buf_, strlen(buf_), 0,
                                     broadcastServerInfo_->ai_addr, broadcastServerInfo_->ai_addrlen)) == -1) {
                 perror("talker: sendto");
