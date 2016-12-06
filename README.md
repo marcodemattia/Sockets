@@ -17,7 +17,7 @@ It will produce four executables:
 Usage example:
 launch the server with:
 
-Server
+./Server
 
 Launch one or more telnet clients on different termianl windows and connect to the default server TCP port (9034):
 
@@ -25,7 +25,7 @@ telnet localhost 9034
 
 Launch one or more (in different terminal windows) MulticastClients to listen to the default server UDP port (10024):
 
-MulticastClient 127.0.0.1 10024
+./MulticastClient 127.0.0.1 10024
 
 Type some messages in the telnet terminal and see the MulticastClients echo the messages (as they are echoed to them
 by the server). Close or open some telnet clients, close or open some more MulticastClients and see how the Server
@@ -50,3 +50,4 @@ The client executables can be utilized to listen to the server in the various op
 - TCPClient can listen to the TCP modes (-m 2 and -m 3);
 - UDPClient can listen to the UDP singlecast mode (-m 1);
 - MulticastClient can listen to the UDP multicast mode (-m 0).
+Run the clients without any option to get a message explaining the input parameters.
